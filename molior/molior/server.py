@@ -85,16 +85,16 @@ class MoliorServer:
         Launchy.attach_loop(self.loop)
 
         worker = Worker()
-        self.task_worker = asyncio.ensure_future(worker.run())
+        self.task_worker = asyncio.create_task(worker.run())
 
         backend_worker = BackendWorker()
-        self.task_backend_worker = asyncio.ensure_future(backend_worker.run())
+        self.task_backend_worker = asyncio.create_task(backend_worker.run())
 
         aptly_worker = AptlyWorker()
-        self.task_aptly_worker = asyncio.ensure_future(aptly_worker.run())
+        self.task_aptly_worker = asyncio.create_task(aptly_worker.run())
 
         notification_worker = NotificationWorker()
-        self.task_notification_worker = asyncio.ensure_future(notification_worker.run())
+        self.task_notification_worker = asyncio.create_task(notification_worker.run())
 
         cfg = Configuration()
         daily_cleanup = cfg.aptly.get("daily_cleanup")

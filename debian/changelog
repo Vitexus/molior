@@ -1,3 +1,14 @@
+molior (1.5.0) trixie; urgency=medium
+
+  * Update for Debian 13 Trixie and Python 3.13 compatibility
+  * Fix deprecated asyncio.coroutine patterns
+  * Replace asyncio.ensure_future with asyncio.create_task
+  * Modernize Debian packaging with debhelper-compat = 13
+  * Update Docker base images to trixie-slim
+  * Add TODO comments for future Debian 14 Forky compatibility
+
+ -- Vitexus <vitex@vitexsoftware.cz>  Wed, 05 Feb 2026 10:00:00 +0100
+
 molior (1.4.1) stretch; urgency=medium
 
   * server info: get machine id

@@ -80,8 +80,13 @@ def test_remove_old_packages():
         aptly_connection = MagicMock()
         get_aptly_connection.return_value = aptly_connection
 
-        aptly_connection.repo_packages_delete = Mock(side_effect=asyncio.coroutine(lambda a, b: 1337))
-        aptly_connection.wait_task = Mock(side_effect=asyncio.coroutine(lambda a: 1342))
+        async def mock_repo_packages_delete(a, b):
+            return 1337
+
+        async def mock_wait_task(a):
+            return 1342
+        aptly_connection.repo_packages_delete = Mock(side_effect=mock_repo_packages_delete)
+        aptly_connection.wait_task = Mock(side_effect=mock_wait_task)
 
         basemirror_name = "stretch"
         basemirror_version = "9.2"
@@ -280,17 +285,26 @@ def test_init():
 
         aptly_connection = MagicMock()
         get_aptly_connection.return_value = aptly_connection
-        aptly_connection.snapshot_create = Mock(
-            side_effect=asyncio.coroutine(lambda a, b: 37)
-        )
-        aptly_connection.snapshot_get = Mock(side_effect=asyncio.coroutine(lambda: []))
-        aptly_connection.snapshot_publish = Mock(
-            side_effect=asyncio.coroutine(lambda a, b, c, d, e: 38)
-        )
-        aptly_connection.repo_get = Mock(side_effect=asyncio.coroutine(lambda: []))
-        aptly_connection.repo_create = Mock(
-            side_effect=asyncio.coroutine(lambda a: None)
-        )
+
+        async def mock_snapshot_get_1(a, b):
+            return 37
+
+        async def mock_snapshot_get_2():
+            return []
+
+        async def mock_snapshot_publish(a, b, c, d, e):
+            return 38
+
+        async def mock_repo_get():
+            return []
+
+        async def mock_repo_create(a):
+            return None
+        aptly_connection.snapshot_get = Mock(side_effect=mock_snapshot_get_1)
+        aptly_connection.snapshot_get = Mock(side_effect=mock_snapshot_get_2)
+        aptly_connection.snapshot_publish = Mock(side_effect=mock_snapshot_publish)
+        aptly_connection.repo_get = Mock(side_effect=mock_repo_get)
+        aptly_connection.repo_create = Mock(side_effect=mock_repo_create)
 
         async def wait_task_mock(_):
             """wait task mock"""
@@ -341,17 +355,18 @@ def test_init_exists():
 
         aptly_connection = MagicMock()
         get_aptly_connection.return_value = aptly_connection
-        aptly_connection.snapshot_get = Mock(
-            side_effect=asyncio.coroutine(
-                lambda: [{"Name": "stretch_9.2_test_2-stable"}]
-            )
-        )
-        aptly_connection.repo_get = Mock(
-            side_effect=asyncio.coroutine(lambda: [{"Name": "stretch-9.2-test-2-stable"}])
-        )
-        aptly_connection.repo_create = Mock(
-            side_effect=asyncio.coroutine(lambda a: None)
-        )
+
+        async def mock_snapshot_get_exists():
+            return [{"Name": "stretch_9.2_test_2-stable"}]
+
+        async def mock_repo_get_exists():
+            return [{"Name": "stretch-9.2-test-2-stable"}]
+
+        async def mock_repo_create_exists(a):
+            return None
+        aptly_connection.snapshot_get = Mock(side_effect=mock_snapshot_get_exists)
+        aptly_connection.repo_get = Mock(side_effect=mock_repo_get_exists)
+        aptly_connection.repo_create = Mock(side_effect=mock_repo_create_exists)
 
         async def wait_task_mock(_):
             """wait task mock"""

@@ -107,7 +107,7 @@ async def buildlog_writer(build_id):
 async def enqueue_buildlog(build_id, msg):
     if build_id not in buildlogs:
         buildlogs[build_id] = asyncio.Queue()
-        asyncio.ensure_future(buildlog_writer(build_id))
+        asyncio.create_task(buildlog_writer(build_id))
     await buildlogs[build_id].put(msg)
 
 

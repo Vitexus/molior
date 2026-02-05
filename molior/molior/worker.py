@@ -316,7 +316,7 @@ class Worker:
             logger.error("rebuilding {} build in state {} not supported".format(build.buildtype, build.buildstate))
 
     async def _schedule(self, _):
-        asyncio.ensure_future(ScheduleBuilds())
+        asyncio.create_task(ScheduleBuilds())
 
     async def _buildenv(self, args):
         cfg = Configuration()
@@ -339,8 +339,8 @@ class Worker:
         components = args[6]
         repo_url = args[7]
         mirror_keys = args[8]
-        asyncio.ensure_future(self.create_build_env(chroot_id, build_id, dist, name, version,
-                              arch, components, repo_url, mirror_keys))
+        asyncio.create_task(self.create_build_env(chroot_id, build_id, dist, name, version,
+                                                  arch, components, repo_url, mirror_keys))
 
     async def create_build_env(self, chroot_id, build_id, dist, name, version, arch, components, repo_url, mirror_keys):
         await CreateBuildEnv(chroot_id, build_id, dist,

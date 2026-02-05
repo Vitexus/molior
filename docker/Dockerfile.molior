@@ -1,4 +1,5 @@
-FROM debian:buster-slim
+FROM debian:trixie-slim
+# TODO: Debian 14 Forky - Update to forky-slim when available
 RUN apt-get update \
     && apt-get install -y supervisor wget gnupg1 nginx-light \
     && rm -rf /var/lib/apt/lists/*

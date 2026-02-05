@@ -1,2 +1,2 @@
-sphinx_rtd_theme
-sphinxcontrib-plantuml
+sphinx_rtd_theme>=2.0.0
+sphinxcontrib-plantuml>=0.25

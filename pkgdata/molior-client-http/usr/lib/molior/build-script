@@ -1,4 +1,5 @@
 #!/bin/sh
+# TODO: Debian 14 Forky - Update build environment variables and dependency resolution
 
 : ${BUILD_ID?"set BUILD_ID before running this script"}
 : ${BUILD_TOKEN?"set BUILD_TOKEN before running this script"}

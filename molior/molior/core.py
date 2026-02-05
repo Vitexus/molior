@@ -12,6 +12,7 @@ from ..model.projectversion import ProjectVersion
 from ..model.projectversion import get_projectversion_deps
 
 
+# TODO: Debian 14 Forky - Verify architecture support and build dependencies
 TARGET_ARCH_ORDER = ["amd64", "i386", "arm64", "armhf"]
 
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: Debian 14 Forky - Update debootstrap for new distribution and package management
 
 usage()
 {

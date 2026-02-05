@@ -4,6 +4,14 @@
 
 Molior is based on [aptly](https://www.aptly.info) for managing Debian package repositories and [sbuild](https://wiki.debian.org/sbuild) for building Debian packages for multiple distributions and architectures.
 
+**Current Requirements:**
+- Debian 13 Trixie or later
+- Python 3.13 or later
+- Modern asyncio support (async/await syntax)
+
+**Build Requirements:**
+Some dependencies (python3-cirrina, python3-launchy) may not be available in standard Debian repositories. For building in environments without these packages, the build system will skip certain tests automatically.
+
 Molior allows the following via WebUI, REST API or commandline tools:
 
 * Manage Debian repository mirrors

@@ -141,8 +141,10 @@ def test_get_maintainer():
     Test get maintainer
     """
     path = "/foo/bar"
-    with patch("molior.molior.core.get_changelog_attr",
-               side_effect=asyncio.coroutine(lambda a, b: "Jon Doe <jon@doe.com>")) as get_changelog_attr:
+
+    async def mock_get_changelog_attr(a, b):
+        return "Jon Doe <jon@doe.com>"
+    with patch("molior.molior.core.get_changelog_attr", side_effect=mock_get_changelog_attr) as get_changelog_attr:
 
         loop = asyncio.get_event_loop()
         res = loop.run_until_complete(get_maintainer(path))
@@ -155,8 +157,10 @@ def test_get_maintainer_none():
     Test get maintainer if empty
     """
     path = "/foo/bar"
-    with patch("molior.molior.core.get_changelog_attr",
-               side_effect=asyncio.coroutine(lambda a, b: "")):
+
+    async def mock_get_changelog_attr_empty(a, b):
+        return ""
+    with patch("molior.molior.core.get_changelog_attr", side_effect=mock_get_changelog_attr_empty):
 
         loop = asyncio.get_event_loop()
         res = loop.run_until_complete(get_maintainer(path))
@@ -168,8 +172,10 @@ def test_get_maintainer_invalid():
     Test get maintainer if invalid
     """
     path = "/foo/bar"
-    with patch("molior.molior.core.get_changelog_attr",
-               side_effect=asyncio.coroutine(lambda a, b: "Jon Doe")):
+
+    async def mock_get_changelog_attr_no_email(a, b):
+        return "Jon Doe"
+    with patch("molior.molior.core.get_changelog_attr", side_effect=mock_get_changelog_attr_no_email):
 
         loop = asyncio.get_event_loop()
         res = loop.run_until_complete(get_maintainer(path))

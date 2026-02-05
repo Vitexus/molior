@@ -1,0 +1,23 @@
+#!/bin/sh
+# Database upgrade for Molior 1.5.0 - Debian 13 Trixie and Python 3.13 compatibility
+# TODO: Debian 14 Forky - Consider additional schema changes for new features
+
+psql molior <<EOF
+
+-- Add metadata for Trixie/Python 3.13 compatibility tracking
+INSERT INTO metadata (name, value) 
+VALUES ('trixie_compatibility', 'true'), 
+       ('python_version', '3.13'),
+       ('molior_version', '1.5.0')
+ON CONFLICT (name) DO UPDATE SET value = EXCLUDED.value;
+
+-- Update any existing stretch references to trixie in configurations
+UPDATE projectversion SET name = REPLACE(name, 'stretch', 'trixie') 
+WHERE name LIKE '%stretch%' AND name NOT LIKE '%trixie%';
+
+-- Log the upgrade
+INSERT INTO metadata (name, value) 
+VALUES ('last_upgrade', '55_trixie_python313') 
+ON CONFLICT (name) DO UPDATE SET value = EXCLUDED.value;
+
+EOF

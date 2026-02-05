@@ -66,10 +66,12 @@ def test_build_changed_url_encoding():
         Session.return_value = enter
         Session().__enter__().query().filter().first().return_value = build
 
-        app.websocket_broadcast = Mock(side_effect=asyncio.coroutine(lambda msg: None))
+        async def mock_websocket_broadcast(msg):
+            return None
+        app.websocket_broadcast = Mock(side_effect=mock_websocket_broadcast)
         loop = asyncio.get_event_loop()
         notification_worker = NotificationWorker()
-        asyncio.ensure_future(notification_worker.run())
+        asyncio.create_task(notification_worker.run())
         loop.run_until_complete(Build.build_changed(build))
 
         Session.assert_called()

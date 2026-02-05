@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash\n# TODO: Debian 14 Forky - Review debootstrap compatibility and new architecture support
 
 usage()
 {

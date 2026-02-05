@@ -27,21 +27,44 @@ Molior build nodes are using sbuild for building which cannot run in a container
 
 ## Prerequisites
 
-Debian installation (VM, bare metal, docker) for:
-- molior server machine
+Debian 13 Trixie installation (VM, bare metal, docker) for:
+- molior server machine (requires Python 3.13+)
 - aptly server machine (might be on the same installation as molior server)
 
-Debian installation (VM, bare metal) for:
+Debian 13 Trixie installation (VM, bare metal) for:
 - one or more build nodes (amd64 or arm64)
+
+<!-- TODO: Debian 14 Forky - Add installation instructions when available -->
+
+## Building from Source
+
+To build molior packages on Debian Trixie:
+
+```bash
+git clone https://github.com/molior-dbs/molior.git
+cd molior
+debuild -us -uc
+```
+
+**Note:** Some dependencies (python3-cirrina, python3-launchy) may not be available in standard repositories. The build system will automatically adapt by skipping tests that require these packages.
 
 ## Installation via APT sources
 
-### Debian buster
+### Debian Trixie
 
 - Add the molior apt source:
 ```
 cat >/etc/apt/sources.list.d/molior.list <<EOF
-deb [arch=amd64,arm64] http://molior.info/1.4/buster stable main
+deb [arch=amd64,arm64] http://molior.info/1.5/trixie stable main
+EOF
+```
+
+### Debian Bullseye (Legacy)
+
+- Add the molior apt source:
+```
+cat >/etc/apt/sources.list.d/molior.list <<EOF
+deb [arch=amd64,arm64] http://molior.info/1.4/bullseye stable main
 EOF
 ```
 

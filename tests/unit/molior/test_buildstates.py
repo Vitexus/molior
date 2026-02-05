@@ -13,14 +13,21 @@ def logmock(build):
     build.parent.log_state = MagicMock()
     if build.parent.parent:
         build.parent.parent.log_state = MagicMock()
-    build.log = Mock(side_effect=asyncio.coroutine(lambda a, **args: None))
-    build.parent.log = Mock(side_effect=asyncio.coroutine(lambda a, **args: None))
+
+    async def mock_log(a, **args):
+        return None
+
+    async def mock_logtitle(a, **args):
+        return None
+
+    build.log = Mock(side_effect=mock_log)
+    build.parent.log = Mock(side_effect=mock_log)
     if build.parent.parent:
-        build.parent.parent.log = Mock(side_effect=asyncio.coroutine(lambda a, **args: None))
-    build.logtitle = Mock(side_effect=asyncio.coroutine(lambda a, **args: None))
-    build.parent.logtitle = Mock(side_effect=asyncio.coroutine(lambda a, **args: None))
+        build.parent.parent.log = Mock(side_effect=mock_log)
+    build.logtitle = Mock(side_effect=mock_logtitle)
+    build.parent.logtitle = Mock(side_effect=mock_logtitle)
     if build.parent.parent:
-        build.parent.parent.logtitle = Mock(side_effect=asyncio.coroutine(lambda a, **args: None))
+        build.parent.parent.logtitle = Mock(side_effect=mock_logtitle)
 
 
 def test_src_build_failed():

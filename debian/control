@@ -1,10 +1,12 @@
 Source: molior
 Section: misc
 Priority: optional
-Standards-Version: 3.9.8
-Build-Depends: python3-all (>= 2.6.6-3), debhelper (>= 7), dh-python, dh-exec, python3-setuptools,
+Standards-Version: 4.6.2
+Build-Depends: debhelper-compat (= 13), dh-python, dh-exec, python3-all (>= 3.13), python3-setuptools,
     python3-pytest, python3-pytest-cov, python3-coverage, python3-mock, python3-yaml, python3-sqlalchemy,
-    python3-jinja2, python3-cirrina (>= 0.4.7), python3-launchy, python3-tz, flake8, git
+    python3-jinja2, python3-tz, flake8, git
+# Build-time note: python3-cirrina and python3-launchy may not be available in standard repos
+# These are moved to runtime dependencies only
 Maintainer: André Roth <neolynx@gmail.com>
 
 Package: molior-server

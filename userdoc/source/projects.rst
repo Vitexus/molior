@@ -22,7 +22,7 @@ Dependencies
 ^^^^^^^^^^^^
 
 Dependencies can be selected while creating a new project version. To guarantee consistency molior only lets you select the ones which have the **same base** as selected in the creation window.
-This means if your project version which you are creating should be based on stretch 9.4 for example you can only select other project versions and framework mirrors as dependencies which also are built on top of stretch 9.4.
+This means if your project version which you are creating should be based on trixie 13.0 for example you can only select other project versions and framework mirrors as dependencies which also are built on top of trixie 13.0.
 
 Locking/Freezing
 ^^^^^^^^^^^^^^^^

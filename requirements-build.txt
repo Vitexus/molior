@@ -1,0 +1,18 @@
+# Build-time requirements for development environments
+# These may not be available in standard Debian repositories
+python3-cirrina>=0.4.7
+python3-launchy
+python3-async-cron
+python3-giturlparse
+python3-aiofile
+
+# Standard packages available in Debian Trixie
+pytest>=6.0
+pytest-cov>=2.10
+coverage>=5.0
+mock>=4.0
+sqlalchemy>=1.4
+jinja2>=3.0
+pytz
+flake8>=4.0
+pyyaml>=5.0
